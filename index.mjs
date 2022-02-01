@@ -56,9 +56,9 @@ app.get('/posts', (req, res) => {
 })
 
 app.post('/post', (req, res) => {
-  res.send("its a post request");
+  res.send('ok, post request')
 
-  
+  /*
   if(req.body.text != undefined || req.body.text.length > 255){
     res.status(400).send("Incorrect response. Please make sure the data is not empty and it must not exeeds 200 characters. e.g : This is your post data");
     return;
@@ -78,8 +78,11 @@ app.post('/post', (req, res) => {
     }
   })
 
-  
+  */
+
 })
+
+/*
 
 app.put('/post/:id', (req, res) => {
   const putIndex = Number(req.params.id)
@@ -97,7 +100,7 @@ app.put('/post/:id', (req, res) => {
     }
 })
 
-/*
+
 app.delete('/post/:id', (req, res) => {
   const delIndex = Number(req.params.id)
   if( testArray[delIndex]){
