@@ -8,7 +8,7 @@ app.use(express.json())
 //// mongodb connection code /////////////////////////////////////////////////////////////////////////////////////////////
 
 
-mongoose.connect("mongodb+srv://owaisahmedkhn:dbpassword123@cluster0.rygcc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
+mongoose.connect("mongodb+srv://owaisahmedkhn:dbowais123@cluster0.rygcc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
 
 ////////////////mongodb connected disconnected events///////////////////////////////////////////////
 mongoose.connection.on('connected', function () {//connected
