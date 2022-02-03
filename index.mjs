@@ -75,7 +75,7 @@ app.get('/posts', (req, res) => {
 })
 
 app.post('/post', (req, res) => {
-  
+  console.log("Post request here => " + req.body.text)
   if(req.body.text || req.body.text.length > 255){
     res.status(400).send("Incorrect response. Please make sure the data is not empty and it must not exeeds 200 characters. e.g : This is your post data");
     return;
