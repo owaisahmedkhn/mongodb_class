@@ -76,7 +76,8 @@ app.get('/posts', (req, res) => {
 
 app.post('/post', (req, res) => {
   console.log("Post request here => " + req.body.text)
-  if(req.body.text || req.body.text.length > 255){
+  if(!req.body.text || req.body.text.length > 200){
+    console.log("!text or length");
     res.status(400).send("Incorrect response. Please make sure the data is not empty and it must not exeeds 200 characters. e.g : This is your post data");
     return;
   }
@@ -90,8 +91,10 @@ app.post('/post', (req, res) => {
   
   newPost.save( (err,saved)=>{
     if(!err){
+      console.log("save => not error");
       res.send("Your Post is saved in our database");
     }else{
+      console.log("save => error");
       res.status(500).send("Post could not be saved. please try again");
     }
   });
