@@ -8,8 +8,27 @@ app.use(express.json())
 //// mongodb connection code /////////////////////////////////////////////////////////////////////////////////////////////
 
 
-mongoose.connect("mongodb+srv://owaisahmedkhn:dbowais123@cluster0.rygcc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
+//mongoose.connect("mongodb+srv://owaisahmedkhn:dbowais123@cluster0.rygcc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
 
+
+
+//let dbUrl = "mongodb+srv://owaisahmedkhn:dbowais123@cluster0.9qvbs.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+// let dbURI = 'mongodb://localhost/mydatabase';
+//mongoose.connect(dbUrl);
+
+//let dbURI = "mongodb+srv://dbuser:dbpassword123@cluster0.9qvbs.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+
+const dbUrl = "mongodb+srv://owaisahmedkhn:owaisahmedkhn@cluster0.rygcc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority" 
+
+
+mongoose.connect(dbUrl);
+//mongoose.connect(dbUrl);
+
+const myTimeout = setTimeout(myGreeting, 5000);
+
+function myGreeting() {
+  console.log(mongoose.connection.readyState);
+}
 ////////////////mongodb connected disconnected events///////////////////////////////////////////////
 mongoose.connection.on('connected', function () {//connected
   console.log("Mongoose is connected");
@@ -56,10 +75,8 @@ app.get('/posts', (req, res) => {
 })
 
 app.post('/post', (req, res) => {
-  res.send('ok, post request')
-
-  /*
-  if(req.body.text != undefined || req.body.text.length > 255){
+  
+  if(req.body.text || req.body.text.length > 255){
     res.status(400).send("Incorrect response. Please make sure the data is not empty and it must not exeeds 200 characters. e.g : This is your post data");
     return;
   }
@@ -69,6 +86,7 @@ app.post('/post', (req, res) => {
   let newPost = new Post({
     "text" : req.body.text
   })
+   
   
   newPost.save( (err,saved)=>{
     if(!err){
@@ -76,53 +94,11 @@ app.post('/post', (req, res) => {
     }else{
       res.status(500).send("Post could not be saved. please try again");
     }
-  })
-
-  */
+  });
+  
 
 })
 
-/*
-
-app.put('/post/:id', (req, res) => {
-  const putIndex = Number(req.params.id)
-
-    if( testArray[putIndex]){
-
-      key = "key" + testArray.length
-      testArray[putIndex][key] = paramBody;
-      res.send("Post updated.")
-
-    }else{
-
-      res.send("Post to be updated could not be found")
-
-    }
-})
-
-
-app.delete('/post/:id', (req, res) => {
-  const delIndex = Number(req.params.id)
-  if( testArray[delIndex]){
-
-    paramBody = req.params.body;
-    key = "key" + testArray.length
-
-    insertObj = {
-      key : paramBody
-    }
-
-    testArray[delIndex] = '';
-    res.send("Post deleted")
-
-  }else{
-
-    res.send("Post to be deleted could not be found")
-
-  }
-})
-*/
- 
 const port = process.env.PORT || 3000
 
 app.listen(port, () => {
