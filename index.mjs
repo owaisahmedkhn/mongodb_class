@@ -66,12 +66,31 @@ app.get('/', (req, res) => {
 })
 
 app.get('/post/:id', (req, res) => {
-  //const postIndex = Number(req.params.id)
- // res.send(testArray[postIndex])
+  
+  const getPostID = req.params.id;
+  Post.findOne({ _id: getPostID }, function (err, post) {
+
+    if(!err){
+        res.send(post);
+    }else{
+      res.status(500).send("requested post could not be found, please try again with correct post request.");
+    }
+  });
+
 })
 
 app.get('/posts', (req, res) => {
-  //res.send(testArray)
+  
+  Post.find({},(err,data)=>{
+    if(!err){
+      console.log("get all posts  => not error, got all posts data");
+      res.send(data);
+    }else{
+      console.log("error getting all posts => error");
+      res.status(500).send("could not get all posts as requested. please try again");
+    }
+  });
+
 })
 
 app.post('/post', (req, res) => {
@@ -91,14 +110,29 @@ app.post('/post', (req, res) => {
   
   newPost.save( (err,saved)=>{
     if(!err){
-      console.log("save => not error");
-      res.send("Your Post is saved in our database");
+      console.log("save => not error, saved => " + saved);
+      res.send("Your Post is saved in our database => " + saved);
     }else{
       console.log("save => error");
       res.status(500).send("Post could not be saved. please try again");
     }
   });
   
+
+})
+
+app.put('/post/:id', (req, res) => {
+  
+  //const getPostID = req.params.id;
+  //let updateText = 
+  Post.findOneAndUpdate( { _id: req.params.id }, { text: req.body.text }, {}, function (err, post) {
+
+    if(!err){
+        res.send(`post updated having id : ${req.params.id} with new text to ${req.body.text}`);
+    }else{
+      res.status(500).send("post could not be updated. please provide correct id");
+    }
+  });
 
 })
 
